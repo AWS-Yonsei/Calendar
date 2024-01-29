@@ -1,4 +1,3 @@
-
 .calendar-app {
   display: flex;
   justify-content: center;
@@ -25,12 +24,12 @@
 
 
 .react-calendar__tile--active {
-  background: #000000;
+  background: #8FB0C6;
 }
 
 
 .memo-display p {
-  font-size: 8px;
+  font-size: 7px;
   margin: 0; 
 }
 
