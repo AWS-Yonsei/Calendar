@@ -1,0 +1,35 @@
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .memo-item {
+    display: flex; /* 메모 요소를 가로로 정렬 */
+    align-items: flex-start; /* 메모 요소를 상단 정렬 */
+    margin-bottom: 10px; /* 간격 조절 */
+    
+  }
+  
+  .memo-content {
+    display: flex; /* 내부 요소를 가로로 정렬 */
+    flex-direction: column; /* 내부 요소를 세로로 정렬 */
+  }
+  .memo-content p {
+    margin: 0; /* 내부 텍스트의 마진 제거 */
+  }
+  .start-time {
+    font-size: 12px; /* 작은 글씨로 설정 */
+    margin-right: 5px; /* startTime과 내용 사이 간격 조절 */
+    margin-top: -2px;
+  }
+
+.memo-actions{
+  display: flex;
+  flex-direction : column;
+}
+.memo-actions button {
+  height: 20px;
+  margin: 1px 3px; /* 버튼의 상하 간격을 5px로 지정하고 좌우는 자동으로 조절됩니다 */
+}
+  
