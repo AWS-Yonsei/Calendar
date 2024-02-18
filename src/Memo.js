@@ -11,6 +11,7 @@ const Memo = ({ selectedDate, memos, showMemoModal, setShowMemoModal }) => {
   const [patientID, setPatientID] = useState('');
 
   useEffect(() => {
+    getData();
     const selectedDateString = selectedDate.toDateString();
     if (memos[selectedDateString]) {
       setMemoList(memos[selectedDateString]);
@@ -19,10 +20,22 @@ const Memo = ({ selectedDate, memos, showMemoModal, setShowMemoModal }) => {
     }
   }, [selectedDate, memos]);
 
-  const fetchData = async () => {
+  const getData = async () => {
     try {
-      const response = await axios.get('YOUR_API_ENDPOINT');
-      setMemoList(response.data);
+      const response = await axios.get('http://localhost:8080/calendar/date');
+      const { success, schedules } = response.data;
+      if (success) {
+        const formattedMemos = schedules.map(schedule => ({
+          content: schedule.attendee,
+          startTime: new Date(schedule.startTime),
+          patientName: schedule.attendee,
+          patientID: schedule.content,
+          color: getMemoColor(memoList.length),
+        }));
+        setMemoList(formattedMemos);
+      } else {
+        console.error('Failed to fetch data');
+      }
     } catch (error) {
       console.error('Error while fetching data:', error);
     }
@@ -56,11 +69,9 @@ const Memo = ({ selectedDate, memos, showMemoModal, setShowMemoModal }) => {
     };
 
     try {
-      await axios.post('YOUR_API_ENDPOINT', newMemo);
+      await axios.post('http://localhost:8080/calendar/create', newMemo);
   
       const updatedMemoList = [...memoList, newMemo];
-      const selectedDateString = selectedDate.toDateString();
-      memos[selectedDateString] = updatedMemoList;
       setMemoList(updatedMemoList);
       setShowMemoModal(false);
       setStartTimeHour('');
